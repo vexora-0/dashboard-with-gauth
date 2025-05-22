@@ -55,22 +55,23 @@ export function SidebarNav() {
           <NavigationMenuList>
             {navItems.map((item) => (
               <NavigationMenuItem key={item.href}>
-                <Link href={item.href} legacyBehavior passHref>
-                  <NavigationMenuLink
-                    className={cn(
-                      navigationMenuTriggerStyle(),
-                      "transition-all duration-200 gap-1.5 group",
-                      pathname === item.href
-                        ? "bg-primary text-primary-foreground"
-                        : "hover:bg-accent/50"
-                    )}
-                  >
+                <NavigationMenuLink
+                  asChild
+                  className={cn(
+                    navigationMenuTriggerStyle(),
+                    "transition-all duration-200 gap-1.5 group",
+                    pathname === item.href
+                      ? "bg-primary text-primary-foreground"
+                      : "hover:bg-accent/50"
+                  )}
+                >
+                  <Link href={item.href}>
                     <span className="transition-all duration-200 group-hover:scale-105">
                       {item.icon}
                     </span>
                     {item.title}
-                  </NavigationMenuLink>
-                </Link>
+                  </Link>
+                </NavigationMenuLink>
               </NavigationMenuItem>
             ))}
           </NavigationMenuList>

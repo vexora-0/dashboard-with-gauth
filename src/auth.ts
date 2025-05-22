@@ -1,12 +1,16 @@
-import type { NextAuthConfig } from "next-auth";
+import NextAuth, { type DefaultSession, type NextAuthConfig } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
 
-if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
-  console.warn('Missing Google OAuth Credentials');
+declare module "next-auth" {
+  interface Session extends DefaultSession {
+    user: {
+      id: string;
+    } & DefaultSession["user"];
+  }
 }
 
-export const authOptions: NextAuthConfig = {
+export const config: NextAuthConfig = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID || "",
@@ -31,29 +35,19 @@ export const authOptions: NextAuthConfig = {
       }
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
-  session: {
-    strategy: "jwt",
-  },
   pages: {
     signIn: "/auth/signin",
     error: "/auth/error",
   },
   callbacks: {
-    authorized({ auth, request: { nextUrl } }) {
+    authorized({ auth, request }) {
       const isLoggedIn = !!auth?.user;
-      const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
+      const isOnDashboard = request.nextUrl.pathname.startsWith('/dashboard');
       if (isOnDashboard) {
         if (isLoggedIn) return true;
-        return false; // Redirect to login page
+        return false;
       }
       return true;
-    },
-    jwt({ token, user }) {
-      if (user) {
-        token.id = user.id;
-      }
-      return token;
     },
     session({ session, token }) {
       if (token && session.user) {
@@ -61,6 +55,14 @@ export const authOptions: NextAuthConfig = {
       }
       return session;
     },
+    jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
   },
   debug: true,
-}; 
+};
+
+export const { handlers, auth, signIn, signOut } = NextAuth(config); 

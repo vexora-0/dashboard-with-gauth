@@ -164,11 +164,8 @@
     @apply max-w-5xl mx-auto px-4 sm:px-6;
   }
   
-  .transition-all-200 {
-    @apply transition-all duration-200;
-  }
-  
+  /* Use standard Tailwind classes instead of custom ones */
   .card-hover {
-    @apply hover:shadow-md transition-all-200;
+    @apply hover:shadow-md transition-all duration-200;
   }
 }

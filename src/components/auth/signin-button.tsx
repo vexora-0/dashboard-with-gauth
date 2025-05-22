@@ -1,22 +1,25 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
-import { signIn } from "next-auth/react";
 import { toast } from "sonner";
-import { useSearchParams } from "next/navigation";
-import { Google } from "lucide-react";
+import { LogIn } from "lucide-react";
+import { signIn } from "next-auth/react";
 
 interface SignInButtonProps {
   variant?: "default" | "outline" | "secondary" | "ghost" | "link" | "primary";
+  provider?: "google" | "credentials";
 }
 
-export function SignInButton({ variant = "outline" }: SignInButtonProps) {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
-
+export function SignInButton({
+  variant = "outline",
+  provider = "google",
+}: SignInButtonProps) {
   const handleSignIn = async () => {
     try {
-      await signIn("google", { callbackUrl });
+      await signIn(provider, { callbackUrl: "/dashboard" });
     } catch (error) {
-      toast.error("Failed to sign in with Google");
+      console.error("Sign in error:", error);
+      toast.error(`Failed to sign in`);
     }
   };
 
@@ -26,8 +29,10 @@ export function SignInButton({ variant = "outline" }: SignInButtonProps) {
       onClick={handleSignIn}
       className="flex items-center gap-2"
     >
-      <Google className="h-4 w-4" />
-      <span>Sign in with Google</span>
+      <LogIn className="h-4 w-4" />
+      <span>
+        Sign in with {provider === "google" ? "Google" : "Test Account"}
+      </span>
     </Button>
   );
 }

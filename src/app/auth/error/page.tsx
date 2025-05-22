@@ -26,14 +26,12 @@ export default function AuthErrorPage() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
-          <p className="text-sm text-muted-foreground">
-            This could be due to:
-            <ul className="list-disc pl-5 mt-2">
-              <li>Invalid credentials</li>
-              <li>Missing or incorrect OAuth configuration</li>
-              <li>Server error</li>
-            </ul>
-          </p>
+          <p className="text-sm text-muted-foreground">This could be due to:</p>
+          <ul className="list-disc pl-5 text-sm text-muted-foreground">
+            <li>Invalid credentials</li>
+            <li>Missing or incorrect OAuth configuration</li>
+            <li>Server error</li>
+          </ul>
           <div className="flex justify-center pt-4">
             <SignInButton variant="default" />
           </div>
