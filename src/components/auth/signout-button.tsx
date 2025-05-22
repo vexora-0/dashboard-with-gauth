@@ -10,7 +10,7 @@ export function SignOutButton({ variant = "ghost" }: SignOutButtonProps) {
   const handleSignOut = async () => {
     try {
       await signOut({ callbackUrl: "/auth/signin" });
-    } catch (error) {
+    } catch {
       toast.error("Failed to sign out");
     }
   };
