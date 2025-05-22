@@ -4,15 +4,20 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { LogIn } from "lucide-react";
 import { signIn } from "next-auth/react";
+import { ReactNode } from "react";
 
-interface SignInButtonProps {
+export interface SignInButtonProps {
   variant?: "default" | "outline" | "secondary" | "ghost" | "link" | "primary";
   provider?: "google" | "credentials";
+  className?: string;
+  children?: ReactNode;
 }
 
 export function SignInButton({
   variant = "outline",
   provider = "google",
+  className = "",
+  children,
 }: SignInButtonProps) {
   const handleSignIn = async () => {
     try {
@@ -27,12 +32,16 @@ export function SignInButton({
     <Button
       variant={variant === "primary" ? "default" : variant}
       onClick={handleSignIn}
-      className="flex items-center gap-2"
+      className={className}
     >
-      <LogIn className="h-4 w-4" />
-      <span>
-        Sign in with {provider === "google" ? "Google" : "Test Account"}
-      </span>
+      {children || (
+        <>
+          <LogIn className="h-4 w-4 mr-2" />
+          <span>
+            Sign in with {provider === "google" ? "Google" : "Test Account"}
+          </span>
+        </>
+      )}
     </Button>
   );
 }
