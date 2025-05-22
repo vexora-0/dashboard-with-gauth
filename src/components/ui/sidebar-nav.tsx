@@ -6,11 +6,9 @@ import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import {
@@ -22,12 +20,13 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "./button";
-import { Menu } from "lucide-react";
+import { Menu, Home, PizzaIcon } from "lucide-react";
 
 interface NavItem {
   title: string;
   href: string;
   description?: string;
+  icon?: React.ReactNode;
 }
 
 const navItems: NavItem[] = [
@@ -35,11 +34,13 @@ const navItems: NavItem[] = [
     title: "Home",
     href: "/dashboard",
     description: "Dashboard home page",
+    icon: <Home className="h-4 w-4" />,
   },
   {
     title: "Pizza Orders",
     href: "/dashboard/pizza-orders",
     description: "View and manage pizza orders",
+    icon: <PizzaIcon className="h-4 w-4" />,
   },
 ];
 
@@ -58,10 +59,15 @@ export function SidebarNav() {
                   <NavigationMenuLink
                     className={cn(
                       navigationMenuTriggerStyle(),
-                      pathname === item.href &&
-                        "bg-accent text-accent-foreground"
+                      "transition-all duration-200 gap-1.5 group",
+                      pathname === item.href
+                        ? "bg-primary text-primary-foreground"
+                        : "hover:bg-accent/50"
                     )}
                   >
+                    <span className="transition-all duration-200 group-hover:scale-105">
+                      {item.icon}
+                    </span>
                     {item.title}
                   </NavigationMenuLink>
                 </Link>
@@ -75,30 +81,50 @@ export function SidebarNav() {
       <div className="md:hidden">
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="outline" size="icon" aria-label="Open menu">
+            <Button
+              variant="outline"
+              size="icon"
+              aria-label="Open menu"
+              className="border-primary/20 hover:bg-primary/10"
+            >
               <Menu className="h-5 w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left">
+          <SheetContent side="left" className="w-72">
             <SheetHeader>
-              <SheetTitle>Navigation</SheetTitle>
+              <SheetTitle className="text-primary">Navigation</SheetTitle>
               <SheetDescription>
                 Access dashboard pages from here.
               </SheetDescription>
             </SheetHeader>
-            <div className="mt-6 flex flex-col space-y-3">
+            <div className="mt-8 flex flex-col space-y-4">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "px-4 py-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
+                    "flex items-center gap-3 px-4 py-3 rounded-md transition-colors",
                     pathname === item.href
-                      ? "bg-accent text-accent-foreground font-medium"
-                      : "text-muted-foreground"
+                      ? "bg-primary text-primary-foreground font-medium shadow-sm"
+                      : "text-muted-foreground hover:bg-accent/50 hover:text-foreground"
                   )}
                 >
-                  {item.title}
+                  <span
+                    className={cn(
+                      "rounded-md p-1.5",
+                      pathname === item.href
+                        ? "bg-primary-foreground/20"
+                        : "bg-background/50"
+                    )}
+                  >
+                    {item.icon}
+                  </span>
+                  <div>
+                    <div>{item.title}</div>
+                    {item.description && (
+                      <p className="text-xs opacity-70">{item.description}</p>
+                    )}
+                  </div>
                 </Link>
               ))}
             </div>
