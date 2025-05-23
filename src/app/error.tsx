@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { AlertTriangle, RefreshCw, Home, ArrowLeft } from "lucide-react";
+import { AlertTriangle, RefreshCw, Home } from "lucide-react";
 import { useEffect } from "react";
 import { HeroGradient } from "@/components/ui/hero-gradient";
 import { GlassCard } from "@/components/ui/glass-card";
@@ -36,7 +36,7 @@ export default function Error({ error, reset }: ErrorProps) {
               transition={{ delay: 0.2, duration: 0.6 }}
               className="flex justify-center"
             >
-              <FloatingIcon variant="destructive" size="xl" glow>
+              <FloatingIcon variant="warning" size="xl" glow>
                 <AlertTriangle className="w-12 h-12" />
               </FloatingIcon>
             </motion.div>
@@ -55,8 +55,8 @@ export default function Error({ error, reset }: ErrorProps) {
 
               <p className="text-xl text-muted-foreground leading-relaxed">
                 We encountered an unexpected error while processing your
-                request. Don't worry, our team has been notified and we're
-                working on a fix.
+                request. Don&apos;t worry, our team has been notified and
+                we&apos;re working on a fix.
               </p>
             </motion.div>
 

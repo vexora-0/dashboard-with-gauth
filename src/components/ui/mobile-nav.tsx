@@ -77,7 +77,9 @@ export function MobileNav() {
           <div className="flex items-center gap-3 border-b pb-4 pt-6 mb-4">
             <Avatar className="h-10 w-10 border-2 border-primary/10">
               <AvatarImage src={session.user.image || ""} />
-              <AvatarFallback>{getInitials(session.user.name)}</AvatarFallback>
+              <AvatarFallback>
+                {getInitials(session.user.name || "")}
+              </AvatarFallback>
             </Avatar>
             <div className="flex flex-col">
               <span className="text-sm font-medium">{session.user.name}</span>

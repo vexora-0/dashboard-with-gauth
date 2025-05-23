@@ -44,7 +44,6 @@ import { cn } from "@/lib/utils";
 import { GlassCard } from "@/components/ui/glass-card";
 import { StatsCard } from "@/components/ui/stats-card";
 import { ExpandableProfileMenu } from "@/components/ui/expandable-profile-menu";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 // Define the order status type
 type OrderStatus = "Delivered" | "In Transit" | "Preparing" | "Cancelled";
@@ -198,7 +197,6 @@ export default function PizzaOrdersPage() {
     key: null,
     direction: null,
   });
-  const isMobile = useIsMobile();
 
   // Calculate enhanced metrics - moved before early returns
   const orderMetrics = useMemo(() => {

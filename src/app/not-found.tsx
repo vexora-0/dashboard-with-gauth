@@ -56,7 +56,7 @@ export default function NotFound() {
               </h1>
 
               <p className="text-xl sm:text-2xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-                Looks like this pizza slice went missing! The page you're
+                Looks like this pizza slice went missing! The page you&apos;re
                 looking for might have been moved, deleted, or is temporarily
                 unavailable.
               </p>

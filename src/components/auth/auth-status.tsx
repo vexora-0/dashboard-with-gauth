@@ -2,7 +2,6 @@
 
 import { useSession } from "next-auth/react";
 import { SignInButton } from "./signin-button";
-import { SignOutButton } from "./signout-button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { LogOut, User } from "lucide-react";
 import Image from "next/image";
