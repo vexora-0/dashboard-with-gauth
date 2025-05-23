@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface ExpandableProfileMenuProps {
   clickToOpen?: boolean; // If true, menu opens on click. If false, always visible
@@ -139,9 +140,11 @@ export function ExpandableProfileMenu({
                   <NavigationItem
                     icon={<BarChart3 className="w-4 h-4" />}
                     label="Analytics"
-                    gradient="from-purple-500 to-violet-500"
+                    gradient="from-gray-500 to-gray-500"
                     onClick={() =>
-                      (window.location.href = "/dashboard/analytics")
+                      toast("Analytics", {
+                        description: "Analytics shall be implemented soon",
+                      })
                     }
                   />
                   <NavigationItem
@@ -155,9 +158,11 @@ export function ExpandableProfileMenu({
                   <NavigationItem
                     icon={<Truck className="w-4 h-4" />}
                     label="Delivery"
-                    gradient="from-green-500 to-emerald-500"
+                    gradient="from-gray-500 to-gray-500"
                     onClick={() =>
-                      (window.location.href = "/dashboard/delivery")
+                      toast("Delivery", {
+                        description: "Delivery shall be implemented soon",
+                      })
                     }
                   />
                 </div>

@@ -43,7 +43,6 @@ import {
 import { cn } from "@/lib/utils";
 import { GlassCard } from "@/components/ui/glass-card";
 import { StatsCard } from "@/components/ui/stats-card";
-import { FloatingIcon } from "@/components/ui/floating-icon";
 import { ExpandableProfileMenu } from "@/components/ui/expandable-profile-menu";
 
 // Define the order status type
@@ -128,16 +127,18 @@ const pizzaOrders: PizzaOrder[] = [
 ];
 
 // Function to determine badge variant based on status
-const getStatusBadgeVariant = (status: OrderStatus) => {
+const getStatusBadgeVariant = (
+  status: OrderStatus
+): "default" | "secondary" | "destructive" | "outline" => {
   switch (status) {
     case "Delivered":
-      return "success";
+      return "default"; // Green-ish primary color for delivered
     case "In Transit":
-      return "info";
+      return "outline"; // Outlined for in transit
     case "Preparing":
-      return "warning";
+      return "secondary"; // Secondary color for preparing
     case "Cancelled":
-      return "destructive";
+      return "destructive"; // Red for cancelled
     default:
       return "secondary";
   }
@@ -197,17 +198,7 @@ export default function PizzaOrdersPage() {
     direction: null,
   });
 
-  // Show loading state while session is loading
-  if (status === "loading") {
-    return <PizzaOrdersTableSkeleton />;
-  }
-
-  // Redirect if not authenticated
-  if (!session) {
-    redirect("/auth/signin");
-  }
-
-  // Calculate enhanced metrics
+  // Calculate enhanced metrics - moved before early returns
   const orderMetrics = useMemo(() => {
     const total = pizzaOrders.length;
     const delivered = pizzaOrders.filter(
@@ -238,39 +229,7 @@ export default function PizzaOrdersPage() {
     };
   }, []);
 
-  // Chart data for status distribution
-  const chartData = [
-    {
-      name: "Delivered",
-      value: orderMetrics.delivered,
-      color: getStatusColor("Delivered"),
-    },
-    {
-      name: "In Transit",
-      value: orderMetrics.inTransit,
-      color: getStatusColor("In Transit"),
-    },
-    {
-      name: "Preparing",
-      value: orderMetrics.preparing,
-      color: getStatusColor("Preparing"),
-    },
-    {
-      name: "Cancelled",
-      value: orderMetrics.cancelled,
-      color: getStatusColor("Cancelled"),
-    },
-  ].filter((item) => item.value > 0);
-
-  // Daily orders chart data with colors
-  const dailyOrdersData = [
-    { date: "Jul 12", orders: 2, revenue: 38.5, color: "#3b82f6" }, // Blue
-    { date: "Jul 13", orders: 2, revenue: 54.49, color: "#10b981" }, // Green
-    { date: "Jul 14", orders: 2, revenue: 65.0, color: "#f59e0b" }, // Orange
-    { date: "Jul 15", orders: 2, revenue: 45.49, color: "#8b5cf6" }, // Purple
-  ];
-
-  // Filter and sort orders
+  // Filter and sort orders - moved before early returns
   const filteredOrders = useMemo(() => {
     let filtered = [...pizzaOrders];
 
@@ -304,7 +263,49 @@ export default function PizzaOrdersPage() {
     }
 
     return filtered;
-  }, [pizzaOrders, searchTerm, statusFilter, sortConfig]);
+  }, [searchTerm, statusFilter, sortConfig]);
+
+  // Show loading state while session is loading
+  if (status === "loading") {
+    return <PizzaOrdersTableSkeleton />;
+  }
+
+  // Redirect if not authenticated
+  if (!session) {
+    redirect("/auth/signin");
+  }
+
+  // Chart data for status distribution
+  const chartData = [
+    {
+      name: "Delivered",
+      value: orderMetrics.delivered,
+      color: getStatusColor("Delivered"),
+    },
+    {
+      name: "In Transit",
+      value: orderMetrics.inTransit,
+      color: getStatusColor("In Transit"),
+    },
+    {
+      name: "Preparing",
+      value: orderMetrics.preparing,
+      color: getStatusColor("Preparing"),
+    },
+    {
+      name: "Cancelled",
+      value: orderMetrics.cancelled,
+      color: getStatusColor("Cancelled"),
+    },
+  ].filter((item) => item.value > 0);
+
+  // Daily orders chart data with colors
+  const dailyOrdersData = [
+    { date: "Jul 12", orders: 2, revenue: 38.5, color: "#3b82f6" }, // Blue
+    { date: "Jul 13", orders: 2, revenue: 54.49, color: "#10b981" }, // Green
+    { date: "Jul 14", orders: 2, revenue: 65.0, color: "#f59e0b" }, // Orange
+    { date: "Jul 15", orders: 2, revenue: 45.49, color: "#8b5cf6" }, // Purple
+  ];
 
   const requestSort = (key: keyof PizzaOrder) => {
     let direction: "ascending" | "descending" | null = "ascending";
@@ -335,9 +336,6 @@ export default function PizzaOrdersPage() {
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <FloatingIcon variant="primary" size="lg" glow>
-              <PizzaIcon className="w-8 h-8" />
-            </FloatingIcon>
             <div>
               <h1 className="text-4xl font-bold tracking-tight text-gradient">
                 Pizza Orders
@@ -355,7 +353,7 @@ export default function PizzaOrdersPage() {
             </Button>
             <Button
               size="sm"
-              className="gradient-primary text-primary-foreground"
+              className="gradient-primary text-black hover:text-white"
             >
               New Order
             </Button>
@@ -670,7 +668,7 @@ export default function PizzaOrdersPage() {
                       </TableCell>
                       <TableCell>
                         <Badge
-                          variant={getStatusBadgeVariant(order.status) as any}
+                          variant={getStatusBadgeVariant(order.status)}
                           className="font-medium flex items-center gap-1.5"
                         >
                           {getStatusIcon(order.status)}
