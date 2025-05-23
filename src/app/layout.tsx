@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Pizza Dashboard",
+  title: "Pizza Master",
   description: "Modern pizza order management dashboard with Google OAuth",
   icons: {
     icon: "/favicon.ico",

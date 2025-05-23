@@ -180,6 +180,7 @@
 @layer base {
   * {
     @apply border-border outline-ring/30;
+    cursor: url('/pizza.svg') 16 16 , auto;
   }
   
   body {

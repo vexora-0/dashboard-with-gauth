@@ -68,7 +68,7 @@ export function MobileNav() {
       <SheetContent side="left" className="border-r pr-0 sm:max-w-xs">
         <SheetHeader className="px-1">
           <SheetTitle className="text-2xl font-bold text-primary">
-            Pizza Dashboard
+            Pizza Master
           </SheetTitle>
           <SheetDescription>Modern pizza order management</SheetDescription>
         </SheetHeader>

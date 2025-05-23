@@ -53,7 +53,7 @@ export function CircularNav({ className }: CircularNavProps) {
               />
             </div>
             <span className="text-xl font-bold bg-gradient-to-r from-foreground to-foreground/60 bg-clip-text text-transparent">
-              Pizza Dashboard
+              Pizza Master
             </span>
           </Link>
         </div>

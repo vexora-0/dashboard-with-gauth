@@ -46,7 +46,7 @@ export function ExpandableProfileMenu({
 
   return (
     <motion.div
-      initial={{ scale: 0.8, opacity: 0 }}
+      initial={{ scale: 0.9, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1.3, duration: 0.5 }}
       className="fixed bottom-8 right-3 z-50 group"
@@ -78,11 +78,6 @@ export function ExpandableProfileMenu({
               </AvatarFallback>
             </Avatar>
           )}
-
-          {/* Online Status */}
-          <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full border-3 border-background shadow-lg flex items-center justify-center">
-            <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
-          </div>
         </div>
 
         {/* Expandable Menu */}
@@ -99,9 +94,9 @@ export function ExpandableProfileMenu({
             className="absolute bottom-20 right-0 min-w-[280px]"
           >
             {/* Modern Card */}
-            <div className="bg-gradient-to-br from-background/95 via-background/90 to-background/85 backdrop-blur-2xl border border-primary/10 rounded-3xl shadow-2xl p-6 space-y-6">
+            <div className="bg-gradient-to-br from-background/95 via-background/90 to-background/85 backdrop-blur-2xl border border-primary/10 rounded-3xl shadow-2xl p-4 space-y-6">
               {/* User Info */}
-              <div className="text-center space-y-3 pb-4 border-b border-border/50">
+              <div className="text-center space-y-3 pb-2 border-b border-border">
                 <div className="space-y-1">
                   <h3 className="font-bold text-lg bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
                     {status === "loading" ? (
@@ -110,21 +105,6 @@ export function ExpandableProfileMenu({
                       session?.user?.name || "Guest User"
                     )}
                   </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {status === "loading" ? (
-                      <Skeleton className="h-4 w-40 mx-auto" />
-                    ) : (
-                      session?.user?.email || "user@example.com"
-                    )}
-                  </p>
-                </div>
-
-                {/* Status Badge */}
-                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-full px-3 py-1">
-                  <div className="w-2 h-2 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full animate-pulse" />
-                  <span className="text-xs font-medium text-green-600 dark:text-green-400">
-                    Online
-                  </span>
                 </div>
               </div>
 

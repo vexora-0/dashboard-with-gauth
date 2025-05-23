@@ -704,7 +704,7 @@ export default function PizzaOrdersPage() {
 
       {/* Expandable Profile Menu */}
       <ExpandableProfileMenu
-        clickToOpen={isMobile}
+        clickToOpen={true}
         showQuickActions={true}
         showNavigation={true}
       />

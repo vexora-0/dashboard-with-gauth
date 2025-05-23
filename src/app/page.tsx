@@ -6,7 +6,6 @@ import { motion } from "framer-motion";
 import { ArrowRight, Zap, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Poppins, Inter } from "next/font/google";
-import { useEffect, useState } from "react";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -23,16 +22,6 @@ const inter = Inter({
 export default function Home() {
   const { data: session } = useSession();
   const router = useRouter();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, []);
 
   if (session) {
     router.push("/dashboard");
@@ -448,20 +437,6 @@ export default function Home() {
           </div>
         </motion.div>
       </div>
-
-      {/* Interactive Cursor Effect */}
-      <motion.div
-        className="pointer-events-none fixed top-0 left-0 w-6 h-6 bg-gradient-to-r from-purple-400 to-purple-600 rounded-full opacity-50 z-50"
-        style={{
-          x: mousePosition.x - 12,
-          y: mousePosition.y - 12,
-        }}
-        transition={{
-          type: "spring",
-          stiffness: 500,
-          damping: 30,
-        }}
-      />
     </div>
   );
 }
