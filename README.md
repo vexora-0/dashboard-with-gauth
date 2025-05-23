@@ -400,12 +400,3 @@ The application is automatically deployed to Vercel with the following configura
 **Project Repository**: [dashboard-with-gauth](https://github.com/vexora-0/dashboard-with-gauth)
 
 ---
-## 🙏 Acknowledgments
-
-- **Next.js Team**: For the amazing React framework
-- **Vercel**: For seamless deployment experience
-- **Radix UI**: For accessible component primitives
-- **Tailwind CSS**: For the utility-first CSS framework
-- **Framer Motion**: For beautiful animations
-
----
