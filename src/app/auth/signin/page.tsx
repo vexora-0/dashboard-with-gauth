@@ -33,16 +33,6 @@ export default function SignInPage() {
             <span className="mx-4 text-sm text-muted-foreground">or</span>
             <Separator className="flex-1" />
           </div>
-
-          <div className="text-center text-sm text-muted-foreground mb-2">
-            <p>For testing use credentials:</p>
-            <p className="font-mono text-xs">
-              username: test
-              <br />
-              password: test
-            </p>
-          </div>
-
           <SignInButton variant="outline" provider="credentials" />
         </CardContent>
         <CardFooter className="flex justify-center text-sm text-muted-foreground">
