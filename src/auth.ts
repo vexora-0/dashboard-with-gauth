@@ -35,6 +35,11 @@ export const config: NextAuthConfig = {
       }
     }),
   ],
+  secret: process.env.NEXTAUTH_SECRET,
+  trustHost: true,
+  session: {
+    strategy: "jwt",
+  },
   pages: {
     signIn: "/auth/signin",
     error: "/auth/error",
@@ -62,7 +67,7 @@ export const config: NextAuthConfig = {
       return token;
     },
   },
-  debug: true,
+  debug: process.env.NODE_ENV === "development",
 };
 
 export const { handlers, auth, signIn, signOut } = NextAuth(config); 
