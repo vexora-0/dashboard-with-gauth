@@ -41,7 +41,7 @@ PizzaMaster Dashboard is a modern, full-stack web application built with Next.js
 
 ## 🚀 Live Application
 
-**[🌐 Live Demo](https://dashboard-with-gauth.vercel.app)**
+**[🌐 Live Demo](https://dashboard-xi-taupe.vercel.app)**
 
 > **⚠️ Important Notice**: To access the deployed application, your email address must be added to the Google OAuth allowed users list. Please email me your Gmail address to be granted access.
 
