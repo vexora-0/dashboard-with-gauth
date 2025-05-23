@@ -33,23 +33,13 @@ export function GlassCard({
       className={cn(
         "rounded-elegant shadow-elegant",
         variants[variant],
-        hover &&
-          "transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-1 hover:scale-[1.02]",
+        hover && "transition-all duration-300 ease-out hover:shadow-lg",
         glow && "shadow-glow",
         className
       )}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
-      whileHover={
-        hover
-          ? {
-              y: -2,
-              scale: 1.02,
-              transition: { duration: 0.2 },
-            }
-          : undefined
-      }
     >
       {children}
     </motion.div>

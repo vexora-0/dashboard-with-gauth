@@ -3,36 +3,16 @@
 import { useSession } from "next-auth/react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { motion } from "framer-motion";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  CalendarDays,
-  Clock,
-  Settings,
-  User2,
-  Activity,
-  TrendingUp,
-  Pizza,
-  MapPin,
-  Star,
-} from "lucide-react";
+import { Clock, Activity, TrendingUp, Pizza, MapPin, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { signOut } from "next-auth/react";
 import { GlassCard } from "@/components/ui/glass-card";
 import { StatsCard } from "@/components/ui/stats-card";
 import { FloatingIcon } from "@/components/ui/floating-icon";
+import { ExpandableProfileMenu } from "@/components/ui/expandable-profile-menu";
 import Link from "next/link";
 
 export default function DashboardPage() {
   const { data: session, status } = useSession({ required: true });
-
-  const getInitials = (name: string) => {
-    return name
-      ?.split(" ")
-      .map((n) => n[0])
-      .join("")
-      .toUpperCase();
-  };
 
   const userGreeting = () => {
     const hours = new Date().getHours();
@@ -56,113 +36,58 @@ export default function DashboardPage() {
 
         <div className="relative z-10">
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-8">
-            {/* User Info */}
-            <div className="flex items-center gap-6">
+            {/* Welcome Section - Simplified */}
+            <div className="space-y-6">
               <motion.div
-                initial={{ scale: 0.8, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
-                className="relative"
+                className="flex items-center gap-3"
               >
-                {status === "loading" ? (
-                  <Skeleton className="h-24 w-24 rounded-full" />
-                ) : (
-                  <div className="relative">
-                    <Avatar className="h-24 w-24 border-4 border-primary/20 shadow-2xl ring-4 ring-primary/10">
-                      <AvatarImage
-                        src={session?.user?.image || ""}
-                        alt={session?.user?.name || "User"}
-                      />
-                      <AvatarFallback className="text-xl bg-primary text-primary-foreground font-bold">
-                        {getInitials(session?.user?.name || "User")}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="absolute -bottom-2 -right-2">
-                      <FloatingIcon size="sm" variant="success" float={false}>
-                        <div className="w-3 h-3 bg-green-500 rounded-full" />
-                      </FloatingIcon>
-                    </div>
-                  </div>
-                )}
+                <span className="text-sm font-medium text-muted-foreground bg-muted/50 px-4 py-2 rounded-full backdrop-blur-sm">
+                  {userGreeting()}
+                </span>
+                <span className="text-xs text-muted-foreground bg-muted/30 px-3 py-1 rounded-full">
+                  {new Date().toLocaleDateString("en-US", {
+                    weekday: "long",
+                    month: "short",
+                    day: "numeric",
+                  })}
+                </span>
               </motion.div>
 
-              <div className="space-y-2">
-                <motion.div
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.3, duration: 0.5 }}
-                  className="flex items-center gap-2"
-                >
-                  <span className="text-sm font-medium text-muted-foreground bg-muted/50 px-3 py-1 rounded-full">
-                    {userGreeting()}
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    {new Date().toLocaleDateString("en-US", {
-                      weekday: "long",
-                      month: "short",
-                      day: "numeric",
-                    })}
-                  </span>
-                </motion.div>
+              <motion.h1
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="text-5xl sm:text-6xl font-bold tracking-tight text-foreground"
+              >
+                {status === "loading" ? (
+                  <Skeleton className="h-16 w-96" />
+                ) : (
+                  <>
+                    Welcome back,{" "}
+                    <span className="text-gradient bg-gradient-to-r from-primary via-purple-500 to-pink-500 bg-clip-text text-transparent">
+                      {session?.user?.name?.split(" ")[0] || "Guest"}
+                    </span>
+                    !
+                  </>
+                )}
+              </motion.h1>
 
-                <motion.h1
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.4, duration: 0.5 }}
-                  className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground"
-                >
-                  {status === "loading" ? (
-                    <Skeleton className="h-12 w-72" />
-                  ) : (
-                    <>
-                      Welcome back,{" "}
-                      <span className="text-gradient">
-                        {session?.user?.name?.split(" ")[0] || "Guest"}
-                      </span>
-                      !
-                    </>
-                  )}
-                </motion.h1>
-
-                <motion.p
-                  initial={{ y: 20, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  transition={{ delay: 0.5, duration: 0.5 }}
-                  className="text-lg text-muted-foreground"
-                >
-                  {status === "loading" ? (
-                    <Skeleton className="h-5 w-96" />
-                  ) : (
-                    "Here's what's happening with your pizza business today"
-                  )}
-                </motion.p>
-              </div>
+              <motion.p
+                initial={{ y: 20, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="text-xl text-muted-foreground max-w-2xl"
+              >
+                {status === "loading" ? (
+                  <Skeleton className="h-6 w-full" />
+                ) : (
+                  "Here's what's happening with your pizza business today"
+                )}
+              </motion.p>
             </div>
-
-            {/* Actions */}
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.4 }}
-              className="flex items-center gap-3"
-            >
-              <Button
-                variant="outline"
-                size="sm"
-                className="glass border-border/50 hover:border-primary/30"
-              >
-                <Settings className="w-4 h-4 mr-2" />
-                Settings
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                className="glass border-border/50 hover:border-destructive/30 text-destructive hover:text-destructive"
-                onClick={() => signOut({ callbackUrl: "/" })}
-              >
-                Sign Out
-              </Button>
-            </motion.div>
           </div>
         </div>
       </GlassCard>
@@ -274,6 +199,13 @@ export default function DashboardPage() {
           </div>
         </GlassCard>
       </motion.div>
+
+      {/* Expandable Profile Menu */}
+      <ExpandableProfileMenu
+        clickToOpen={true}
+        showQuickActions={true}
+        showNavigation={false}
+      />
     </motion.div>
   );
 }

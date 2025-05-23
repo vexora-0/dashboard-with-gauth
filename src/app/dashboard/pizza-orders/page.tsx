@@ -5,7 +5,6 @@ import { Badge } from "@/components/ui/badge";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -26,7 +25,6 @@ import {
   XCircle,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState, useMemo } from "react";
@@ -46,6 +44,7 @@ import { cn } from "@/lib/utils";
 import { GlassCard } from "@/components/ui/glass-card";
 import { StatsCard } from "@/components/ui/stats-card";
 import { FloatingIcon } from "@/components/ui/floating-icon";
+import { ExpandableProfileMenu } from "@/components/ui/expandable-profile-menu";
 
 // Define the order status type
 type OrderStatus = "Delivered" | "In Transit" | "Preparing" | "Cancelled";
@@ -148,15 +147,15 @@ const getStatusBadgeVariant = (status: OrderStatus) => {
 const getStatusColor = (status: OrderStatus) => {
   switch (status) {
     case "Delivered":
-      return "hsl(var(--chart-4))"; // Green
+      return "#10b981"; // Emerald Green
     case "In Transit":
-      return "hsl(var(--chart-1))"; // Blue
+      return "#3b82f6"; // Blue
     case "Preparing":
-      return "hsl(var(--chart-5))"; // Orange
+      return "#f59e0b"; // Amber Orange
     case "Cancelled":
-      return "hsl(var(--destructive))"; // Red
+      return "#ef4444"; // Red
     default:
-      return "hsl(var(--muted-foreground))"; // Gray
+      return "#6b7280"; // Gray
   }
 };
 
@@ -263,12 +262,12 @@ export default function PizzaOrdersPage() {
     },
   ].filter((item) => item.value > 0);
 
-  // Daily orders chart data
+  // Daily orders chart data with colors
   const dailyOrdersData = [
-    { date: "Jul 12", orders: 2, revenue: 38.5 },
-    { date: "Jul 13", orders: 2, revenue: 54.49 },
-    { date: "Jul 14", orders: 2, revenue: 65.0 },
-    { date: "Jul 15", orders: 2, revenue: 45.49 },
+    { date: "Jul 12", orders: 2, revenue: 38.5, color: "#3b82f6" }, // Blue
+    { date: "Jul 13", orders: 2, revenue: 54.49, color: "#10b981" }, // Green
+    { date: "Jul 14", orders: 2, revenue: 65.0, color: "#f59e0b" }, // Orange
+    { date: "Jul 15", orders: 2, revenue: 45.49, color: "#8b5cf6" }, // Purple
   ];
 
   // Filter and sort orders
@@ -506,12 +505,11 @@ export default function PizzaOrdersPage() {
                       backgroundColor: "rgba(255, 255, 255, 0.9)",
                     }}
                   />
-                  <Bar
-                    dataKey="orders"
-                    fill="hsl(var(--chart-1))"
-                    radius={[4, 4, 0, 0]}
-                    name="orders"
-                  />
+                  <Bar dataKey="orders" radius={[4, 4, 0, 0]} name="orders">
+                    {dailyOrdersData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Bar>
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -703,6 +701,13 @@ export default function PizzaOrdersPage() {
           </div>
         </GlassCard>
       </motion.div>
+
+      {/* Expandable Profile Menu */}
+      <ExpandableProfileMenu
+        clickToOpen={false}
+        showQuickActions={true}
+        showNavigation={true}
+      />
     </motion.div>
   );
 }
