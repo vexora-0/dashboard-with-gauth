@@ -32,17 +32,17 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background max-h-screen`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-background min-h-screen`}
       >
         <Providers>
-          {/* Animated Background */}
+          {/* Animated Background - only show on dashboard pages */}
           <AnimatedBackground />
 
-          {/* Creative Circular Navigation */}
+          {/* Creative Circular Navigation - only show on dashboard pages */}
           <CircularNav />
 
-          {/* Main Content with top padding for navigation */}
-          <main className="min-h-screen pt-16">{children}</main>
+          {/* Main Content */}
+          <main className="min-h-screen">{children}</main>
 
           <Toaster position="top-right" expand={false} richColors closeButton />
         </Providers>

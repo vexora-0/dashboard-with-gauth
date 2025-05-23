@@ -3,10 +3,15 @@
 import { useSession } from "next-auth/react";
 import { SignInButton } from "@/components/auth/signin-button";
 import { motion } from "framer-motion";
-import { ArrowRight, Shield, Zap, BarChart3, Users } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { GlassCard } from "@/components/ui/glass-card";
-import { FloatingIcon } from "@/components/ui/floating-icon";
+import { Poppins } from "next/font/google";
+
+const poppins = Poppins({
+  weight: ["400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
+  display: "swap",
+});
 
 export default function Home() {
   const { data: session } = useSession();
@@ -17,123 +22,58 @@ export default function Home() {
   }
 
   return (
-    <div className="bg-gradient-to-br from-background via-background to-muted/30 flex items-center justify-center relative overflow-hidden min-h-screen">
-      {/* Subtle background decoration */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_20%,rgba(120,119,198,0.03),transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(120,119,198,0.02),transparent_50%)]" />
+    <div
+      className={`min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-purple-900 dark:from-slate-950 dark:via-slate-900 dark:to-purple-950 flex items-center justify-center relative overflow-hidden ${poppins.className}`}
+    >
+      {/* Subtle texture overlay */}
+      <div className="absolute inset-0 opacity-[0.02]">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.4)_1px,transparent_0)] bg-[size:32px_32px]" />
+      </div>
 
       {/* Main content */}
-      <motion.div
-        className="container-wide relative z-10 text-center max-w-4xl mx-auto px-6"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-      >
-        {/* Hero badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-muted/50 border border-border/50 text-sm font-medium text-muted-foreground mb-8 backdrop-blur-sm"
-        >
-          <div className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-          Revolutionizing business management
-        </motion.div>
-
+      <div className="relative z-10 text-center max-w-5xl mx-auto px-6">
         {/* Main heading */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="text-6xl sm:text-7xl lg:text-8xl font-bold tracking-tight mb-6"
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="text-7xl sm:text-8xl lg:text-9xl font-bold tracking-tight mb-8 text-white"
         >
-          <span className="text-gradient">Smart</span>
-          <br />
-          <span className="text-foreground">Dashboard</span>
+          Dashboard
         </motion.h1>
 
         {/* Subtitle */}
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.5, duration: 0.6 }}
-          className="text-xl sm:text-2xl text-muted-foreground max-w-2xl mx-auto mb-12 leading-relaxed"
+          transition={{ delay: 0.4, duration: 0.6 }}
+          className="text-xl sm:text-2xl text-gray-400 max-w-3xl mx-auto mb-16 leading-relaxed font-medium"
         >
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          Modern business management platform with intuitive design
+          <br />
+          to power up your{" "}
+          <span className="underline decoration-purple-400 underline-offset-4">
+            productivity
+          </span>{" "}
+          workflows
         </motion.p>
 
         {/* CTA Button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.7, duration: 0.6 }}
-          className="mb-16"
+          transition={{ delay: 0.6, duration: 0.6 }}
         >
           <SignInButton
             variant="default"
             provider="google"
-            className="group inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold rounded-elegant bg-primary text-primary-foreground shadow-elegant hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="inline-flex items-center gap-3 px-8 py-4 text-lg font-semibold rounded-full bg-white text-black hover:bg-gray-100 transition-all duration-300 hover:scale-105 shadow-xl"
           >
-            Get Started
-            <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            Access Dashboard
+            <ArrowRight className="w-5 h-5" />
           </SignInButton>
         </motion.div>
-      </motion.div>
-
-      {/* Subtle corner decorations */}
-      <motion.div
-        className="absolute top-8 right-8 w-24 h-24 opacity-5"
-        animate={{ rotate: 360 }}
-        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
-      >
-        <BarChart3 className="w-full h-full text-muted-foreground" />
-      </motion.div>
-
-      <motion.div
-        className="absolute bottom-8 left-8 w-20 h-20 opacity-5"
-        animate={{ rotate: -360 }}
-        transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-      >
-        <Users className="w-full h-full text-muted-foreground" />
-      </motion.div>
+      </div>
     </div>
-  );
-}
-
-interface FeatureCardProps {
-  icon: React.ReactNode;
-  title: string;
-  description: string;
-  delay?: number;
-}
-
-function FeatureCard({
-  icon,
-  title,
-  description,
-  delay = 0,
-}: FeatureCardProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay, duration: 0.6 }}
-      whileHover={{ y: -2, transition: { duration: 0.2 } }}
-    >
-      <GlassCard className="p-6 h-full text-center group hover:shadow-xl transition-all duration-300">
-        <div className="flex flex-col items-center space-y-4">
-          <FloatingIcon variant="primary" size="md" float={false}>
-            {icon}
-          </FloatingIcon>
-          <h3 className="text-lg font-semibold text-foreground group-hover:text-primary transition-colors">
-            {title}
-          </h3>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            {description}
-          </p>
-        </div>
-      </GlassCard>
-    </motion.div>
   );
 }
