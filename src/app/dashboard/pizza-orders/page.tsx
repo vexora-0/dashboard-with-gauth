@@ -327,7 +327,7 @@ export default function PizzaOrdersPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.6 }}
-      className="space-y-8"
+      className="space-y-8 mt-6"
     >
       {/* Enhanced Header */}
       <motion.div
