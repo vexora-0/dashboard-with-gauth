@@ -3,9 +3,10 @@
 import { useSession } from "next-auth/react";
 import { SignInButton } from "@/components/auth/signin-button";
 import { motion } from "framer-motion";
-import { ArrowRight, Zap, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Poppins, Inter } from "next/font/google";
+import Image from "next/image";
 
 const poppins = Poppins({
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -192,7 +193,7 @@ export default function Home() {
           </motion.div>
         </motion.div>
 
-        {/* 3D Visual Content */}
+        {/* 3D Pizza Visual */}
         <motion.div
           className="hidden lg:block w-1/2 relative"
           initial={{ opacity: 0, x: 50 }}
@@ -200,7 +201,7 @@ export default function Home() {
           transition={{ duration: 0.8, delay: 0.4 }}
         >
           <div className="relative">
-            {/* Main 3D Dashboard Visual */}
+            {/* Main 3D Pizza Visual */}
             <motion.div
               className="relative"
               animate={{
@@ -217,189 +218,19 @@ export default function Home() {
                 filter: "drop-shadow(0 20px 40px rgba(139, 92, 246, 0.3))",
               }}
             >
-              <svg
-                width="500"
-                height="500"
-                viewBox="0 0 500 500"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
+              <Image
+                src="/blackPizza.svg"
+                alt="Pizza"
+                width={500}
+                height={500}
                 className="relative z-10"
-              >
-                {/* Dashboard Background */}
-                <rect
-                  x="50"
-                  y="50"
-                  width="400"
-                  height="400"
-                  rx="20"
-                  fill="url(#dashboardGradient)"
-                  className="shadow-2xl"
-                />
-
-                {/* Header Bar */}
-                <rect
-                  x="50"
-                  y="50"
-                  width="400"
-                  height="60"
-                  rx="20"
-                  fill="url(#headerGradient)"
-                />
-
-                {/* Navigation Dots */}
-                <circle cx="80" cy="80" r="6" fill="#ff5f57" />
-                <circle cx="100" cy="80" r="6" fill="#ffbd2e" />
-                <circle cx="120" cy="80" r="6" fill="#28ca42" />
-
-                {/* Chart Elements */}
-                <motion.g
-                  animate={{ scale: [1, 1.05, 1] }}
-                  transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
-                >
-                  <rect
-                    x="80"
-                    y="140"
-                    width="80"
-                    height="120"
-                    rx="8"
-                    fill="url(#chartGradient1)"
-                  />
-                  <rect
-                    x="180"
-                    y="160"
-                    width="80"
-                    height="100"
-                    rx="8"
-                    fill="url(#chartGradient2)"
-                  />
-                  <rect
-                    x="280"
-                    y="120"
-                    width="80"
-                    height="140"
-                    rx="8"
-                    fill="url(#chartGradient3)"
-                  />
-                </motion.g>
-
-                {/* Metric Cards */}
-                <motion.g
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-                >
-                  <rect
-                    x="80"
-                    y="300"
-                    width="100"
-                    height="80"
-                    rx="12"
-                    fill="white"
-                    fillOpacity="0.9"
-                  />
-                  <rect
-                    x="200"
-                    y="300"
-                    width="100"
-                    height="80"
-                    rx="12"
-                    fill="white"
-                    fillOpacity="0.9"
-                  />
-                  <rect
-                    x="320"
-                    y="300"
-                    width="100"
-                    height="80"
-                    rx="12"
-                    fill="white"
-                    fillOpacity="0.9"
-                  />
-                </motion.g>
-
-                {/* Floating Elements */}
-                <motion.circle
-                  cx="400"
-                  cy="150"
-                  r="15"
-                  fill="url(#floatingGradient)"
-                  animate={{
-                    y: [0, -10, 0],
-                    scale: [1, 1.2, 1],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                />
-
-                <defs>
-                  <linearGradient
-                    id="dashboardGradient"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="100%"
-                  >
-                    <stop offset="0%" stopColor="#ffffff" />
-                    <stop offset="100%" stopColor="#f8fafc" />
-                  </linearGradient>
-                  <linearGradient
-                    id="headerGradient"
-                    x1="0%"
-                    y1="0%"
-                    x2="100%"
-                    y2="0%"
-                  >
-                    <stop offset="0%" stopColor="#8b5cf6" />
-                    <stop offset="100%" stopColor="#7c3aed" />
-                  </linearGradient>
-                  <linearGradient
-                    id="chartGradient1"
-                    x1="0%"
-                    y1="0%"
-                    x2="0%"
-                    y2="100%"
-                  >
-                    <stop offset="0%" stopColor="#8b5cf6" />
-                    <stop offset="100%" stopColor="#a78bfa" />
-                  </linearGradient>
-                  <linearGradient
-                    id="chartGradient2"
-                    x1="0%"
-                    y1="0%"
-                    x2="0%"
-                    y2="100%"
-                  >
-                    <stop offset="0%" stopColor="#06b6d4" />
-                    <stop offset="100%" stopColor="#67e8f9" />
-                  </linearGradient>
-                  <linearGradient
-                    id="chartGradient3"
-                    x1="0%"
-                    y1="0%"
-                    x2="0%"
-                    y2="100%"
-                  >
-                    <stop offset="0%" stopColor="#10b981" />
-                    <stop offset="100%" stopColor="#6ee7b7" />
-                  </linearGradient>
-                  <radialGradient
-                    id="floatingGradient"
-                    cx="50%"
-                    cy="50%"
-                    r="50%"
-                  >
-                    <stop offset="0%" stopColor="#fbbf24" />
-                    <stop offset="100%" stopColor="#f59e0b" />
-                  </radialGradient>
-                </defs>
-              </svg>
+                priority
+              />
             </motion.div>
 
-            {/* Floating UI Elements */}
+            {/* Floating Ingredient Elements */}
             <motion.div
-              className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-br from-purple-400 to-purple-600 rounded-2xl flex items-center justify-center shadow-xl"
+              className="absolute -top-10 -right-10 w-20 h-20 rounded-2xl flex items-center justify-center shadow-xl"
               animate={{
                 y: [0, -10, 0],
                 rotate: [0, 5, 0],
@@ -411,16 +242,18 @@ export default function Home() {
                 delay: 0.5,
               }}
             >
-              <motion.div
-                animate={{ rotate: [0, 360] }}
-                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-              >
-                <Sparkles className="w-10 h-10 text-white" />
-              </motion.div>
+              <Image
+                src="/olive.svg"
+                alt="olive"
+                width={500}
+                height={500}
+                className="relative z-10 scale-200 translate-x-5 translate-y-3"
+                priority
+              />
             </motion.div>
 
             <motion.div
-              className="absolute -bottom-5 -left-5 w-16 h-16 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg"
+              className="absolute -bottom-5 -left-5 w-16 h-16 rounded-xl flex items-center justify-center shadow-lg"
               animate={{
                 y: [0, -15, 0],
                 rotate: [0, -5, 0],
@@ -432,7 +265,63 @@ export default function Home() {
                 delay: 1.5,
               }}
             >
-              <Zap className="w-8 h-8 text-white" />
+              <Image
+                src="/tomato.svg"
+                alt="tomato"
+                width={500}
+                height={500}
+                className="relative z-10"
+                priority
+              />
+            </motion.div>
+
+            {/* Additional floating basil leaf */}
+            <motion.div
+              className="absolute top-1/3 -left-8 w-12 h-12 flex items-center justify-center"
+              animate={{
+                y: [0, -8, 0],
+                x: [0, 5, 0],
+                rotate: [0, 10, 0],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2,
+              }}
+            >
+              <Image
+                src="/basil leaf.svg"
+                alt="basil leaf"
+                width={500}
+                height={500}
+                className="relative z-10 scale-200 translate-x-5 translate-y-3"
+                priority
+              />
+            </motion.div>
+            {/* Additional floating basil leaf */}
+            <motion.div
+              className="absolute top-1/3 -right-8 w-12 h-12 flex items-center justify-center"
+              animate={{
+                y: [0, -8, 0],
+                x: [0, 5, 0],
+                rotate: [0, 10, 0],
+              }}
+              transition={{
+                duration: 6,
+                repeat: Infinity,
+                ease: "easeInOut",
+                delay: 2,
+              }}
+            >
+              <Image
+                src="/redchilli.svg"
+                alt="red chili"
+                width={500}
+                height={500}
+                className="relative z-10 scale-[2.6] translate-10"
+                priority
+              />
             </motion.div>
           </div>
         </motion.div>
