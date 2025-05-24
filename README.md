@@ -29,21 +29,13 @@ PizzaMaster Dashboard is a modern, full-stack web application built with Next.js
 | **Framework** | Next.js | 15.3.2 | React framework for production |
 | **Authentication** | NextAuth.js | 5.0.0-beta.28 | OAuth and session management |
 | **Styling** | Tailwind CSS | 4.x | Utility-first CSS framework |
-| **UI Components** | Radix UI | Latest | Accessible, unstyled components |
+| **UI Components** | Radix UI, shadcn | Latest | Accessible, unstyled components |
 | **Animations** | Framer Motion | 11.18.2 | Motion library for React |
 | **Charts** | Recharts | 2.10.3 | Chart library for data visualization |
 | **Icons** | Lucide React | 0.511.0 | Beautiful icon library |
 | **Notifications** | Sonner | 2.0.3 | Toast notifications |
 | **Language** | TypeScript | 5.x | Type-safe JavaScript |
 | **Deployment** | Vercel | - | Cloud platform for frontend frameworks |
-
----
-
-## 🚀 Live Application
-
-**[🌐 Live Demo](https://dashboard-xi-taupe.vercel.app)**
-
-> **⚠️ Important Notice**: To access the deployed application, your email address must be added to the Google OAuth allowed users list. Please email me your Gmail address to be granted access.
 
 ---
 
