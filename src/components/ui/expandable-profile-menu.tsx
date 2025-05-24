@@ -51,17 +51,52 @@ export function ExpandableProfileMenu({
       transition={{ delay: 1.3, duration: 0.5 }}
       className="fixed bottom-8 right-3 z-50 group"
     >
-      {/* Profile Circle */}
+      {/* Profile Circle */}{" "}
       <motion.div
         className={`relative ${clickToOpen ? "cursor-pointer" : ""}`}
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         onClick={handleAvatarClick}
       >
-        {/* Glowing Background */}
-        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-purple-500/20 to-pink-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 scale-150" />
-
-        {/* Main Circle */}
+        {" "}
+        {/* Glowing Background */}{" "}
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/20 via-purple-500/20 to-pink-500/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-500 scale-150 -translate-x-2" />{" "}
+        {/* Quick Actions Tooltip for clickToOpen mode */}{" "}
+        {clickToOpen && !isMenuOpen && (
+          <>
+            {" "}
+            <motion.div
+              className="absolute -top-10 left-1/2 -translate-x-1/2 bg-primary text-white px-2 py-1 rounded text-xs font-medium whitespace-nowrap z-10 shadow-lg"
+              initial={{ opacity: 0, y: 5, scale: 0.9 }}
+              animate={{
+                opacity: [0, 1, 1, 0],
+                y: [5, 0, 0, 5],
+                scale: [0.9, 1, 1, 0.9],
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                repeatDelay: 4,
+                ease: "easeInOut",
+              }}
+            >
+              {" "}
+              Quick Actions {/* Small arrow pointing down to profile circle */}{" "}
+              <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-2 border-r-2 border-t-2 border-transparent border-t-primary"></div>{" "}
+            </motion.div>{" "}
+            {/* Subtle pulsing ring around profile circle */}{" "}
+            <motion.div
+              className="absolute inset-0 rounded-full border border-primary/20"
+              animate={{ scale: [1, 1.05, 1], opacity: [0.2, 0.4, 0.2] }}
+              transition={{
+                duration: 2.5,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+          </>
+        )}{" "}
+        {/* Main Circle */}{" "}
         <div className="relative w-16 h-16 bg-gradient-to-br from-background/95 via-background/90 to-background/80 backdrop-blur-xl border border-primary/20 rounded-full shadow-2xl overflow-hidden">
           {/* Avatar */}
           {status === "loading" ? (
@@ -79,7 +114,6 @@ export function ExpandableProfileMenu({
             </Avatar>
           )}
         </div>
-
         {/* Expandable Menu */}
         {isMenuOpen && (
           <motion.div
@@ -107,7 +141,6 @@ export function ExpandableProfileMenu({
                   </h3>
                 </div>
               </div>
-
               {/* Navigation Grid */}
               {showNavigation && (
                 <div className="grid grid-cols-2 gap-3">
@@ -147,10 +180,33 @@ export function ExpandableProfileMenu({
                   />
                 </div>
               )}
-
-              {/* Quick Actions - Conditionally rendered */}
+              {/* Quick Actions - Conditionally rendered */}{" "}
               {showQuickActions && (
-                <div className="space-y-2 pt-2 border-t border-border/50">
+                <motion.div
+                  className="space-y-2 pt-2 border-t border-border/50 relative"
+                  initial={{ opacity: 0.8 }}
+                  animate={{
+                    opacity: 1,
+                    boxShadow: [
+                      "0 0 0 rgba(59, 130, 246, 0)",
+                      "0 0 20px rgba(59, 130, 246, 0.1)",
+                      "0 0 0 rgba(59, 130, 246, 0)",
+                    ],
+                  }}
+                  transition={{
+                    opacity: { delay: 0.3, duration: 0.5 },
+                    boxShadow: { delay: 1, duration: 2, repeat: 2 },
+                  }}
+                >
+                  {" "}
+                  {/* Quick Actions Label */}{" "}
+                  <div className="mb-3">
+                    {" "}
+                    <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      {" "}
+                      Quick Actions{" "}
+                    </span>{" "}
+                  </div>
                   <QuickAction
                     icon={<Bell className="w-4 h-4" />}
                     label="Notifications"
@@ -166,8 +222,8 @@ export function ExpandableProfileMenu({
                     label="Sign Out"
                     variant="danger"
                     onClick={() => signOut({ callbackUrl: "/" })}
-                  />
-                </div>
+                  />{" "}
+                </motion.div>
               )}
             </div>
           </motion.div>
@@ -255,11 +311,12 @@ function QuickAction({
       </div>
       <span className="font-medium text-sm">{label}</span>
       <motion.div
-        className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity"
+        className="ml-auto opacity-0 group-hover:opacity-100 transition-opacity text-primary"
         initial={{ x: -5 }}
-        whileHover={{ x: 0 }}
+        whileHover={{ x: 2 }}
       >
-        →
+        {" "}
+        →{" "}
       </motion.div>
     </motion.button>
   );
